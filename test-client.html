@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat Test Client</title>
+    <style>
+        body { font-family: sans-serif; max-width: 800px; margin: 2rem auto; padding: 0 1rem; }
+        #chat-box { height: 400px; border: 1px solid #ccc; overflow-y: scroll; padding: 1rem; margin-bottom: 1rem; border-radius: 4px; }
+        .message { margin-bottom: 0.5rem; }
+        .user { color: blue; font-weight: bold; }
+        .assistant { color: green; font-weight: bold; }
+        .controls { display: flex; gap: 0.5rem; }
+        input { flex: 1; padding: 0.5rem; }
+        button { padding: 0.5rem 1rem; cursor: pointer; }
+    </style>
+    <script src="https://cdn.socket.io/4.7.4/socket.io.min.js"></script>
+</head>
+<body>
+    <h1>WebSocket Chat Test</h1>
+    <div id="chat-box"></div>
+    <div class="controls">
+        <input type="text" id="message-input" placeholder="Type a message..." />
+        <button onclick="sendMessage()">Send</button>
+    </div>
+
+    <script>
+        const socket = io('http://localhost:3000');
+        const chatBox = document.getElementById('chat-box');
+        const input = document.getElementById('message-input');
+        let currentAssistantMessageDiv = null;
+
+        socket.on('connect', () => {
+            console.log('Connected to server');
+            appendLog('System', 'Connected to server');
+        });
+
+        socket.on('disconnect', () => {
+            console.log('Disconnected');
+            appendLog('System', 'Disconnected');
+        });
+
+        socket.on('receiveMessage', (chunk) => {
+            // If we don't have a current message div for the assistant, create one
+            if (!currentAssistantMessageDiv) {
+                currentAssistantMessageDiv = document.createElement('div');
+                currentAssistantMessageDiv.className = 'message';
+                currentAssistantMessageDiv.innerHTML = '<span class="assistant">AI: </span><span></span>';
+                chatBox.appendChild(currentAssistantMessageDiv);
+            }
+            
+            // Append the chunk to the current message
+            const span = currentAssistantMessageDiv.querySelector('span:last-child');
+            span.textContent += chunk;
+            chatBox.scrollTop = chatBox.scrollHeight;
+        });
+
+        function sendMessage() {
+            const message = input.value;
+            if (!message) return;
+
+            // Display user message
+            appendLog('User', message);
+            
+            // Reset assistant message container for the new response
+            currentAssistantMessageDiv = null;
+
+            // Send to server
+            socket.emit('sendMessage', { message });
+            input.value = '';
+        }
+
+        function appendLog(sender, text) {
+            const div = document.createElement('div');
+            div.className = 'message';
+            const senderClass = sender.toLowerCase();
+            div.innerHTML = `<span class="${senderClass}">${sender}: </span>${text}`;
+            chatBox.appendChild(div);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        // Allow Enter key to send
+        input.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
+        });
+    </script>
+</body>
+</html>
