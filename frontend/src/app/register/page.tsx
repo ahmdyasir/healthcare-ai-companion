@@ -47,8 +47,8 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-900 text-gray-100">
-      <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md border border-gray-700">
+    <div className="min-h-screen flex items-center justify-center bg-zinc-900 text-gray-100">
+      <div className="bg-zinc-800 p-8 rounded-lg shadow-lg w-full max-w-md border border-zinc-700">
         <div className="flex justify-center mb-6">
           <Image src="/logo.png" alt="Logo" width={64} height={64} />
         </div>

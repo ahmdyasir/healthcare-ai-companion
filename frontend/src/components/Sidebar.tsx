@@ -54,11 +54,11 @@ export default function Sidebar({ currentConversationId, onSelectConversation, o
 
       {/* Sidebar Container */}
       <div className={`
-        fixed md:static inset-y-0 left-0 z-30
-        w-64 bg-gray-900 border-r border-gray-800 transform transition-transform duration-200 ease-in-out
-        ${isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
+        fixed md:relative inset-y-0 left-0 z-30
+        bg-zinc-900 border-r border-zinc-800 transform transition-all duration-300 ease-in-out overflow-hidden
+        ${isOpen ? 'w-64 translate-x-0' : 'w-0 -translate-x-full md:translate-x-0 md:w-0 md:border-none'}
       `}>
-        <div className="p-4 flex flex-col h-full">
+        <div className="p-4 flex flex-col h-full w-64">
           <button
             onClick={() => {
               onNewChat();
@@ -80,8 +80,8 @@ export default function Sidebar({ currentConversationId, onSelectConversation, o
                 }}
                 className={`w-full text-left p-3 rounded-lg flex items-center gap-3 transition-colors ${
                   currentConversationId === conv.id
-                    ? 'bg-gray-800 text-white'
-                    : 'text-gray-400 hover:bg-gray-800/50 hover:text-gray-200'
+                    ? 'bg-zinc-800 text-white'
+                    : 'text-gray-400 hover:bg-zinc-800/50 hover:text-gray-200'
                 }`}
               >
                 <MessageSquare size={18} />
