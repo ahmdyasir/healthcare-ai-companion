@@ -121,7 +121,7 @@ export class ChatService {
       }
 
       const stream = await this.openai.chat.completions.create({
-        model: 'llama3-70b-8192', // Free, fast, and very capable model on Groq
+        model: 'llama-3.3-70b-versatile', // Free, fast, and very capable model on Groq
         messages: [
           { role: 'system', content: 'You are a helpful healthcare AI companion. Provide accurate, empathetic health info. Always advise consulting a doctor.' },
           { role: 'user', content: finalPrompt }

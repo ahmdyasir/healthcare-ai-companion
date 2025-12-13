@@ -28,15 +28,15 @@ export default function ChatInterface() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   
-  const { token, logout, isAuthenticated } = useAuth();
+  const { token, logout, isAuthenticated, isLoading } = useAuth();
   const router = useRouter();
 
   // Redirect if not authenticated
   useEffect(() => {
-    if (!isAuthenticated) {
+    if (!isLoading && !isAuthenticated) {
       router.push('/login');
     }
-  }, [isAuthenticated, router]);
+  }, [isLoading, isAuthenticated, router]);
 
   // Auto-scroll to bottom
   const scrollToBottom = () => {
@@ -201,6 +201,10 @@ export default function ChatInterface() {
     
     setInputValue('');
   };
+
+  if (isLoading) {
+    return <div className="flex h-screen w-full items-center justify-center bg-gray-900 text-white">Loading...</div>;
+  }
 
   if (!isAuthenticated) return null;
 
