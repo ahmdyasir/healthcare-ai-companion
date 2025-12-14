@@ -1,0 +1,13 @@
+{
+  "name": "healthcare-ai-deployment",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "install:backend": "cd backend && npm install",
+    "build": "cd backend && npm run build",
+    "start": "cd backend && npm run start:prod"
+  },
+  "engines": {
+    "node": "20.x"
+  }
+}
