@@ -30,7 +30,7 @@ export default function Sidebar({ currentConversationId, onSelectConversation, o
 
   const fetchConversations = async () => {
     try {
-      const res = await fetch('http://localhost:3001/chat/conversations', {
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/chat/conversations`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (res.ok) {

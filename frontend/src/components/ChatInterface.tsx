@@ -69,7 +69,7 @@ export default function ChatInterface() {
   useEffect(() => {
     if (!token) return;
 
-    const newSocket = io('http://localhost:3001', {
+    const newSocket = io(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001', {
       auth: {
         token: token
       }
@@ -139,7 +139,7 @@ export default function ChatInterface() {
       return;
     }
 
-    fetch(`http://localhost:3001/chat/conversations/${currentConversationId}`, {
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/chat/conversations/${currentConversationId}`, {
       headers: {
         'Authorization': `Bearer ${token}`
       }
@@ -166,7 +166,7 @@ export default function ChatInterface() {
     formData.append('file', file);
 
     try {
-      const response = await fetch('http://localhost:3001/upload', {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/upload`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`
