@@ -21,34 +21,6 @@ services:
     volumes:
       - redis_data:/data
 
-  backend:
-    build: ./backend
-    container_name: healthcare_backend
-    ports:
-      - "3001:3001"
-    environment:
-      - DB_HOST=postgres
-      - DB_PORT=5432
-      - DB_USERNAME=admin
-      - DB_PASSWORD=password123
-      - DB_NAME=healthcare_companion
-      - REDIS_HOST=redis
-      - REDIS_PORT=6379
-      - JWT_SECRET=dev_secret_key_123
-    depends_on:
-      - postgres
-      - redis
-
-  frontend:
-    build: ./frontend
-    container_name: healthcare_frontend
-    ports:
-      - "3000:3000"
-    environment:
-      - NEXT_PUBLIC_API_URL=http://localhost:3001
-    depends_on:
-      - backend
-
 volumes:
   postgres_data:
   redis_data:
