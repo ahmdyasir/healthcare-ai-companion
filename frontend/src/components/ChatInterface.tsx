@@ -242,14 +242,14 @@ export default function ChatInterface() {
           <div className="flex items-center gap-3">
             <button 
               onClick={toggleSidebar}
-              className="text-gray-400 hover:text-white transition-colors"
+              className="text-gray-400 hover:text-white transition-colors cursor-pointer hover:bg-zinc-800 p-2 rounded-md"
               title={isSidebarOpen ? "Close Sidebar" : "Open Sidebar"}
             >
               <Menu size={24} />
             </button>
             <h1 className="text-xl font-bold flex items-center gap-2">
               <Image src="/logo.png" alt="Logo" width={32} height={32} className="w-8 h-8" />
-              <span className="hidden sm:inline">Healthcare AI Companion</span>
+              <span className="hidden sm:inline">Mantra </span>
               <span className="sm:hidden">AI Companion</span>
             </h1>
           </div>
@@ -280,7 +280,9 @@ export default function ChatInterface() {
                   msg.role === 'assistant' ? 'bg-zinc-900' : 'bg-zinc-900'
                 }`}
               >
-                <div className="max-w-3xl mx-auto p-4 md:p-6 flex gap-4 md:gap-6">
+                <div className={`max-w-3xl mx-auto p-4 md:p-6 flex gap-4 md:gap-6 ${
+                  msg.role === 'user' ? 'flex-row-reverse' : ''
+                }`}>
                   <div className="shrink-0 flex flex-col relative items-end">
                     <div className={`w-8 h-8 rounded-sm flex items-center justify-center ${
                       msg.role === 'user' ? 'bg-indigo-500' : 'bg-green-500'
@@ -288,7 +290,9 @@ export default function ChatInterface() {
                       {msg.role === 'user' ? <User size={20} className="text-white" /> : <Bot size={20} className="text-white" />}
                     </div>
                   </div>
-                  <div className="relative flex-1 overflow-hidden">
+                  <div className={`relative flex-1 overflow-hidden ${
+                    msg.role === 'user' ? 'text-right' : ''
+                  }`}>
                     <div className="font-bold text-sm mb-1 opacity-90">
                       {msg.role === 'user' ? 'You' : 'AI Assistant'}
                     </div>
@@ -318,7 +322,7 @@ export default function ChatInterface() {
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
                 disabled={!isConnected || isUploading}
-                className="p-2 text-gray-400 hover:text-white transition-colors disabled:opacity-50"
+                className="p-2 text-gray-400 hover:text-white transition-colors disabled:opacity-50 cursor-pointer"
                 title="Upload Excel File"
               >
                 <Paperclip className="w-5 h-5" />
@@ -345,7 +349,7 @@ export default function ChatInterface() {
               </button>
             </div>
             <div className="text-center mt-2 text-xs text-gray-500">
-              Healthcare AI can make mistakes. Consider checking important information.
+              Mantra can make mistakes. Consider checking important information.
             </div>
           </form>
         </div>

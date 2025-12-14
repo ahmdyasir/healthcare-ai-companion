@@ -64,7 +64,7 @@ export default function Sidebar({ currentConversationId, onSelectConversation, o
               onNewChat();
               if (window.innerWidth < 768) setIsOpen(false);
             }}
-            className="flex items-center gap-2 w-full bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-lg transition-colors mb-4"
+            className="flex items-center gap-2 w-full bg-blue-600 hover:bg-blue-700 text-white p-3 rounded-lg transition-colors mb-4 cursor-pointer"
           >
             <Plus size={20} />
             <span>New Chat</span>
@@ -78,7 +78,7 @@ export default function Sidebar({ currentConversationId, onSelectConversation, o
                   onSelectConversation(conv.id);
                   if (window.innerWidth < 768) setIsOpen(false);
                 }}
-                className={`w-full text-left p-3 rounded-lg flex items-center gap-3 transition-colors ${
+                className={`w-full text-left p-3 rounded-lg flex items-center gap-3 transition-colors cursor-pointer ${
                   currentConversationId === conv.id
                     ? 'bg-zinc-800 text-white'
                     : 'text-gray-400 hover:bg-zinc-800/50 hover:text-gray-200'

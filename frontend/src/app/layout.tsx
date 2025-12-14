@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Healthcare AI Companion",
+  title: "Mantra",
   description: "Your personal AI health assistant",
   icons: {
     icon: "/logo.svg",
